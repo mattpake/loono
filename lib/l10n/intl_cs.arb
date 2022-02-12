@@ -494,6 +494,8 @@
   "@calendar_permission_sheet_button": {},
   "examination_detail_edit_date_button": "Upravit datum",
   "@examination_detail_edit_date_button": {},
+  "examination_detail_rewards_for_examination": "Odměny za preventivní prohlídky",
+  "@examination_detail_rewards_for_examination": {},
   "examination_call_doctor1": "Zavolej svému",
   "@examination_call_doctor1": {},
   "examination_call_doctor2": "a objednej se na",

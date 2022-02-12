@@ -341,6 +341,60 @@ class ExaminationDetail extends StatelessWidget {
             ],
           ),
         ),
+        Padding(
+          padding: const EdgeInsets.only(left: 18.0, right: 18.0),
+          child: Container(
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(
+                Radius.circular(10.0),
+              ),
+              color: LoonoColors.greenLight,
+            ),
+            height: 161,
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: [
+                    const SizedBox(
+                      width: 18,
+                    ),
+                    Text(
+                      context.l10n.examination_detail_rewards_for_examination,
+                      style: const TextStyle(fontSize: 14),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: const [
+                    CircleAvatar(
+                      radius: 35,
+                      backgroundColor: Colors.white,
+                    ),
+                    CircleAvatar(
+                      radius: 35,
+                      backgroundColor: Colors.white,
+                    ),
+                    CircleAvatar(
+                      radius: 35,
+                      backgroundColor: Colors.white,
+                    ),
+                    CircleAvatar(
+                      radius: 35,
+                      backgroundColor: Colors.white,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
         const SizedBox(
           height: 40,
         ),
