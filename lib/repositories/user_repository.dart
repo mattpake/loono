@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:loono/helpers/date_without_day.dart';
+import 'package:loono/models/api_response.dart';
 import 'package:loono/services/api_service.dart';
 import 'package:loono/services/auth/auth_service.dart';
 import 'package:loono/services/database_service.dart';
@@ -173,5 +174,15 @@ class UserRepository {
       return result;
     }
     return false;
+  }
+
+  Future<ApiResponse<Account>?> getBadges() async{
+    final account = await _apiService.getAccount();
+    await account.whenOrNull(
+        success: (data) async {
+          return data.badges;
+        },
+    );
+    return null;
   }
 }

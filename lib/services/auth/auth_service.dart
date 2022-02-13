@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
@@ -172,7 +174,9 @@ class AuthService {
 
   // TODO: refresh token more often - maybe on each api call ? (https://cesko-digital.atlassian.net/browse/LOON-477)
   Future<void> refreshUserToken(AuthUser authUser) async {
+
     final token = await authUser.getIdToken();
+    log(token);
     _api.dio.options.headers['Authorization'] = 'Bearer $token';
   }
 
