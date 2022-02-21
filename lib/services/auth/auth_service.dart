@@ -176,7 +176,7 @@ class AuthService {
   Future<void> refreshUserToken(AuthUser authUser) async {
 
     final token = await authUser.getIdToken();
-    log(token);
+    //log(token);
     _api.dio.options.headers['Authorization'] = 'Bearer $token';
   }
 
