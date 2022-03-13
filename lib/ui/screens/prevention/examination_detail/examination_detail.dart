@@ -16,6 +16,7 @@ import 'package:loono/router/app_router.gr.dart';
 import 'package:loono/services/calendar_service.dart';
 import 'package:loono/services/database_service.dart';
 import 'package:loono/services/db/database.dart';
+import 'package:loono/ui/screens/prevention/examination_detail/examination_badges.dart';
 import 'package:loono/ui/screens/prevention/examination_detail/faq_section.dart';
 import 'package:loono/ui/widgets/button.dart';
 import 'package:loono/ui/widgets/prevention/calendar_permission_sheet.dart';
@@ -39,7 +40,7 @@ class ExaminationDetail extends StatelessWidget {
   final _calendarService = registry.get<CalendarService>();
   final _calendarEventsDao = registry.get<DatabaseService>().calendarEvents;
   final _usersDao = registry.get<DatabaseService>().users;
-  final _account = registry.get<UserRepository>().getBadges();
+  final _getBadges = registry.get<UserRepository>().getBadges();
 
   final CategorizedExamination categorizedExamination;
 
@@ -309,7 +310,13 @@ class ExaminationDetail extends StatelessWidget {
                 Expanded(
                   child: LoonoButton.light(
                     text: l10n.examination_detail_edit_date_button,
-                    onTap: () => showEditModal(context, categorizedExamination),
+                    onTap: () {
+                      showEditModal(context, categorizedExamination);
+
+                      _getBadges.then(print);
+                     // print(categorizedExamination.examination.badge.name);
+                      // print(_examinationType);
+                    },
                   ),
                 ),
               ] else if ([
@@ -364,17 +371,17 @@ class ExaminationDetail extends StatelessWidget {
                   child: LoonoButton.light(
                     text: 'mam_objednano',
                     onTap: () {
-                      print(
-                        _account.then(
-                          (value) => print(
-                            value?.whenOrNull(
-                              success: (data) async {
-                                data.badges!.length;
-                              },
-                            ),
-                          ),
-                        ),
-                      );
+                      // print(
+                      //   _getBadges.then(
+                      //     (value) => print(
+                      //       value?.whenOrNull(
+                      //         success: (data) async {
+                      //           data.badges!.length;
+                      //         },
+                      //       ),
+                      //     ),
+                      //   ),
+                      // );
                     },
                   ),
                 ),
@@ -382,76 +389,7 @@ class ExaminationDetail extends StatelessWidget {
             ],
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: 18.0, right: 18.0),
-          child: Container(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(
-                Radius.circular(10.0),
-              ),
-              color: LoonoColors.greenLight,
-            ),
-            height: 161,
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  children: [
-                    const SizedBox(
-                      width: 18,
-                    ),
-                    Text(
-                      context.l10n.examination_detail_rewards_for_examination,
-                      style: const TextStyle(fontSize: 14),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Wrap(
-                    spacing: 18,
-                    children: const [
-                      SizedBox(),
-                      CircleAvatar(
-                        radius: 35,
-                        backgroundColor: Colors.white,
-                      ),
-                      CircleAvatar(
-                        radius: 35,
-                        backgroundColor: Colors.white,
-                      ),
-                      CircleAvatar(
-                        radius: 35,
-                        backgroundColor: Colors.white,
-                      ),
-                      CircleAvatar(
-                        radius: 35,
-                        backgroundColor: Colors.white,
-                      ),
-                      CircleAvatar(
-                        radius: 35,
-                        backgroundColor: Colors.white,
-                      ),
-                      CircleAvatar(
-                        radius: 35,
-                        backgroundColor: Colors.white,
-                      ),
-                      CircleAvatar(
-                        radius: 35,
-                        backgroundColor: Colors.white,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+        ExaminationBadges(examinationType: _examinationType,categorizedExamination: categorizedExamination, badges: _getBadges),
         const SizedBox(
           height: 40,
         ),

@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:developer';
 
+import 'package:built_collection/built_collection.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:loono/helpers/date_without_day.dart';
@@ -169,13 +171,17 @@ class UserRepository {
     return false;
   }
 
-  Future<ApiResponse<Account>?> getBadges() async{
+  Future<BuiltList<Badge>?> getBadges() async {
     final account = await _apiService.getAccount();
-    await account.whenOrNull(
-        success: (data) async {
-          return data.badges;
-        },
+    // print('Account printed: $account');
+    return account.map(
+      success: (data) {
+        return data.data.badges;
+      },
+      failure: (FailureApiResponse<Account> value) {
+        log(value.error.toString());
+        return null;
+      },
     );
-    return null;
   }
 }
